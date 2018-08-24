@@ -1,9 +1,11 @@
 package cn.mklaus.tools;
 
 
+import cn.mklaus.tools.image.Combiner;
+import cn.mklaus.tools.image.ImageMagic;
+import cn.mklaus.tools.image.Position;
 import org.junit.Assert;
 import org.junit.Test;
-import org.nutz.img.Images;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,8 +18,13 @@ import java.io.IOException;
  */
 public class ImageMagicTest {
 
-    private static File IMG = new File(ImageMagicTest.class.getResource("/curry.jpg").getFile());
+    private static File CURRY = new File(ImageMagicTest.class.getResource("/curry.jpg").getFile());
+    private static File IMG = new File(ImageMagicTest.class.getResource("/img.png").getFile());
+    private static File AVATAR = new File(ImageMagicTest.class.getResource("/avatar.jpg").getFile());
 
+    private static ImageMagic CURRY_MAGIC = ImageMagic.newMagic(CURRY);
+    private static ImageMagic IMG_MAGIC = ImageMagic.newMagic(IMG);
+    private static ImageMagic AVATAR_MAGIC = ImageMagic.newMagic(AVATAR);
 
     @Test
     public void read() {
@@ -27,30 +34,40 @@ public class ImageMagicTest {
     }
 
     @Test
-    public void toFile() throws IOException {
-        ImageMagic magic = ImageMagic.newMagic(IMG);
-        File file = null;
-        try {
-            file = magic.toFile();
-            Assert.assertNotNull(file);
-        } catch (IOException e) {
-            Assert.fail();
-        } finally {
-            if (file != null && file.exists()) {
-                file.delete();
-            }
-        }
+    public void roundCornerTest() {
+        ImageMagic magic = ImageMagic.newMagic(AVATAR)
+                .roundCorner(80);
+        save(magic);
     }
 
     @Test
-    public void rotate() throws IOException {
-        ImageMagic magic = ImageMagic.newMagic(IMG);
-//        BufferedImage scale = Transformer.roundCorner(magic.getBufferedImage(), 7500);
-//        File target = new File("target.jpg");
-//        Images.clipScale(magic.getBufferedImage(), target, 1000, 1000);
+    public void roundCornerRadioTest() {
+        ImageMagic magic = ImageMagic.newMagic(AVATAR)
+                .roundCorner(100);
+        save(magic);
+    }
 
-        BufferedImage c = Combiner.combineBlank(magic.getBufferedImage(), Position.RIGHT, 200, Color.BLUE);
-        save(c);
+    @Test
+    public void mergeTest() {
+        ImageMagic curry = ImageMagic.newMagic(CURRY);
+        ImageMagic magic = ImageMagic.newMagic(AVATAR)
+                .merge(curry.getBufferedImage(), Position.BOTTOM);
+        save(magic);
+    }
+
+    @Test
+    public void mergeBlankTest() {
+        ImageMagic magic = ImageMagic.newMagic(AVATAR)
+                .mergeBlank(200, Color.GREEN, Position.LEFT);
+        save(magic);
+    }
+
+    @Test
+    public void test() {
+        Combiner.Config config = Combiner.Config.builder().x(20).y(20).alpha(0.5f).build();
+        BufferedImage im = Combiner.mergeInside(CURRY_MAGIC.getBufferedImage(), AVATAR_MAGIC.getBufferedImage(), config);
+
+        save(im);
     }
 
     private void save(BufferedImage bufferedImage) {

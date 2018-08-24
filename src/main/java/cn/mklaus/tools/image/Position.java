@@ -1,4 +1,4 @@
-package cn.mklaus.tools;
+package cn.mklaus.tools.image;
 
 /**
  * @author klaus

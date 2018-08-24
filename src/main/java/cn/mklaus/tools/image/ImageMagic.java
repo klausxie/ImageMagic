@@ -1,6 +1,7 @@
-package cn.mklaus.tools;
+package cn.mklaus.tools.image;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class ImageMagic {
         this.format = JPRG;
         this.formatSuffix = JPRG_SUFFIX;
         this.bufferedImage = bufferedImage;
+        checkImageType(bufferedImage);
     }
 
     public static ImageMagic newMagic(Object img) {
@@ -108,6 +110,43 @@ public class ImageMagic {
     public ImageMagic png() {
         this.format = PNG;
         this.formatSuffix = PNG_SUFFIX;
+        return this;
+    }
+
+    public void checkImageType(BufferedImage bi) {
+        // 带有 Alpha信息的图片，使用 PNG 格式输出文件
+        if (bi.getType() == BufferedImage.TYPE_INT_ARGB
+                || bi.getType() == BufferedImage.TYPE_INT_ARGB_PRE
+                || bi.getType() == BufferedImage.TYPE_4BYTE_ABGR
+                || bi.getType() == BufferedImage.TYPE_4BYTE_ABGR_PRE) {
+            png();
+        }
+    }
+
+    /**
+     * Builder
+     */
+
+    public ImageMagic roundCorner(int corner) {
+        this.bufferedImage = Transformer.roundCorner(this.bufferedImage, corner);
+        png();
+        return this;
+    }
+
+    public ImageMagic roundCornerRadio(int percent) {
+        this.bufferedImage = Transformer.roundedCornerRadio(this.bufferedImage, percent);
+        png();
+        return this;
+    }
+
+    public ImageMagic merge(BufferedImage im, Position position) {
+        checkImageType(im);
+        this.bufferedImage = Combiner.merge(this.bufferedImage, im, position);
+        return this;
+    }
+
+    public ImageMagic mergeBlank(int length, Color color, Position position) {
+        this.bufferedImage = Combiner.mergeBlank(this.bufferedImage, length, color, position);
         return this;
     }
 

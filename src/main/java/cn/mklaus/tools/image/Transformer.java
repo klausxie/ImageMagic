@@ -1,4 +1,4 @@
-package cn.mklaus.tools;
+package cn.mklaus.tools.image;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -89,7 +89,7 @@ public class Transformer {
         return re;
     }
 
-    public BufferedImage roundedCornerRadio(BufferedImage im, int percent) {
+    public static BufferedImage roundedCornerRadio(BufferedImage im, int percent) {
         if (percent < 1 || percent > 100) {
             throw new IllegalArgumentException("percent value between 1 and 100");
         }

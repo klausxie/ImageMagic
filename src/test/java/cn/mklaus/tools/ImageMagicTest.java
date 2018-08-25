@@ -1,10 +1,7 @@
 package cn.mklaus.tools;
 
 
-import cn.mklaus.tools.image.Combiner;
-import cn.mklaus.tools.image.ImageMagic;
-import cn.mklaus.tools.image.Location;
-import cn.mklaus.tools.image.Position;
+import cn.mklaus.tools.image.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -52,28 +49,53 @@ public class ImageMagicTest {
     public void mergeTest() {
         ImageMagic curry = ImageMagic.newMagic(CURRY);
         ImageMagic magic = ImageMagic.newMagic(AVATAR)
-                .merge(curry.getBufferedImage(), Position.BOTTOM);
+                .merge(curry.getBufferedImage(), Direction.BOTTOM);
         save(magic);
     }
 
     @Test
     public void mergeBlankTest() {
         ImageMagic magic = ImageMagic.newMagic(AVATAR)
-                .mergeBlank(200, Color.GREEN, Position.LEFT);
+                .mergeBlank(200, Color.GREEN, Direction.LEFT);
         save(magic);
     }
 
     @Test
-    public void test() {
+    public void testMergeInside() {
         Location location = Location.builder()
                 .horizonCenter(true)
+                .verticalCenter(true)
                 .absolute(true)
-                .bottom(10)
-                .top(20)
+                .right(20)
                 .build();
 
-        BufferedImage im = Combiner.mergeInside(CURRY_MAGIC.getBufferedImage(), AVATAR_MAGIC.getBufferedImage(), location);
+        AVATAR_MAGIC.roundCornerRadio(100);
+        ImageMagic im = ImageMagic.newMagic(CURRY)
+                .mergeInside(AVATAR_MAGIC.getBufferedImage(), location);
 
+        save(im);
+    }
+
+    @Test
+    public void testPrintText() {
+        Location location = Location.builder()
+                .horizonCenter(true)
+//                .offsetY(50)
+//                .verticalCenter(true)
+                .absolute(true)
+                .right(20)
+                .bottom(0)
+                .left(20)
+//                .top(0)
+                .build();
+
+        Text text = Text.builder()
+                .color(Color.GREEN)
+                .font(new Font("Songti", Font.ITALIC , 16))
+                .content("MVP MVP MVP")
+                .build();
+
+        BufferedImage im = Combiner.printText(CURRY_MAGIC.getBufferedImage(), text, location);
         save(im);
     }
 

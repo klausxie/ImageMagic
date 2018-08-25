@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * 图片拼接
+ * 图片拼接 文字水印
  *
  * @author klaus
  * @date 2018/8/23 下午5:10
@@ -14,17 +14,17 @@ public class Combiner {
     /**
      * 扩充图片区域
      * @param im        需要扩充的图片
-     * @param position  扩充方向
+     * @param direction  扩充方向
      * @param length    扩充长度
      * @param bgColor   填充的颜色
      * @return          扩充后的 BufferedImage
      */
-    public static BufferedImage mergeBlank(BufferedImage im,  int length, Color bgColor, Position position) {
+    public static BufferedImage mergeBlank(BufferedImage im,  int length, Color bgColor, Direction direction) {
         int w = im.getWidth();
         int h = im.getHeight();
         int bw = 0;
         int bh = 0;
-        if (position.isVertical()) {
+        if (direction.isVertical()) {
             bw = w;
             bh = length;
         } else {
@@ -37,18 +37,18 @@ public class Combiner {
         g.setColor(bgColor);
         g.fillRect(0, 0, bw, bh);
 
-        return merge(im, blank, position);
+        return merge(im, blank, direction);
     }
 
     /**
      * 合并两张图片
      * @param img1      图1
      * @param img2      图2
-     * @param position  合并方向
+     * @param direction  合并方向
      * @return          合并后的 BufferedImage
      */
-    public static BufferedImage merge(BufferedImage img1, BufferedImage img2, Position position) {
-        if (position == Position.TOP || position == Position.LEFT) {
+    public static BufferedImage merge(BufferedImage img1, BufferedImage img2, Direction direction) {
+        if (direction == Direction.TOP || direction == Direction.LEFT) {
             BufferedImage temp = img1; img1 = img2; img2 = temp;
         }
 
@@ -58,7 +58,7 @@ public class Combiner {
         int h2 = img2.getHeight();
 
         BufferedImage re;
-        if (position.isVertical()) {
+        if (direction.isVertical()) {
             // 垂直合并
 
             if (w1 > w2) {
@@ -105,6 +105,13 @@ public class Combiner {
     }
 
 
+    /**
+     * 将一张图片放着另一种的上面，相当于打水印
+     * @param bg
+     * @param im
+     * @param location
+     * @return
+     */
     public static BufferedImage mergeInside(BufferedImage bg, BufferedImage im, Location location) {
         location.setup(bg, im);
 
@@ -114,6 +121,20 @@ public class Combiner {
         g.dispose();
         return bg;
     }
+
+
+    public static BufferedImage printText(BufferedImage bg, Text text, Location location) {
+        location.setup(bg, text);
+        Graphics2D g = bg.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
+        g.setColor(text.getColor());
+        g.setFont(text.getFont());
+        g.drawString(text.getContent(), location.getX(), location.getY());
+        g.dispose();
+        return bg;
+    }
+
 
     /**
      * 将图片信息读取到数组

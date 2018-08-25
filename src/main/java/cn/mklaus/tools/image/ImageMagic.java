@@ -139,14 +139,19 @@ public class ImageMagic {
         return this;
     }
 
-    public ImageMagic merge(BufferedImage im, Position position) {
+    public ImageMagic merge(BufferedImage im, Direction direction) {
         checkImageType(im);
-        this.bufferedImage = Combiner.merge(this.bufferedImage, im, position);
+        this.bufferedImage = Combiner.merge(this.bufferedImage, im, direction);
         return this;
     }
 
-    public ImageMagic mergeBlank(int length, Color color, Position position) {
-        this.bufferedImage = Combiner.mergeBlank(this.bufferedImage, length, color, position);
+    public ImageMagic mergeBlank(int length, Color color, Direction direction) {
+        this.bufferedImage = Combiner.mergeBlank(this.bufferedImage, length, color, direction);
+        return this;
+    }
+
+    public ImageMagic mergeInside(BufferedImage im, Location location) {
+        this.bufferedImage = Combiner.mergeInside(this.bufferedImage, im, location);
         return this;
     }
 

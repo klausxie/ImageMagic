@@ -21,8 +21,7 @@ import java.awt.image.BufferedImage;
 public class Location {
     private BufferedImage backgroundImage;
     private BufferedImage overImage;
-    private Font overFont;
-    private String overText;
+    private Text overText;
     private int bgHeight;
     private int bgWidth;
     private int overHeight;
@@ -60,19 +59,20 @@ public class Location {
         this.overWidth = overImage.getWidth();
     }
 
-    public void setup(BufferedImage backgroundImage, Font font, String text) {
+    public void setup(BufferedImage backgroundImage, Text text) {
         this.backgroundImage = backgroundImage;
-        this.overFont = font;
         this.overText = text;
         this.bgHeight = backgroundImage.getHeight();
         this.bgWidth = backgroundImage.getWidth();
 
-        BufferedImage temp = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = temp.createGraphics();
+        Graphics2D g = backgroundImage.createGraphics();
         FontRenderContext context = g.getFontRenderContext();
-        Rectangle2D bounds = font.getStringBounds(text, context);
+        Rectangle2D bounds = text.getFont().getStringBounds(text.getContent(), context);
         this.overWidth = (int)bounds.getWidth();
         this.overHeight = (int)bounds.getHeight();
+
+        // 原因是：drawString(String str, int x, int y) 中的参数x,y 指的是左下角
+        offsetY += text.getFont().getSize();
     }
 
 

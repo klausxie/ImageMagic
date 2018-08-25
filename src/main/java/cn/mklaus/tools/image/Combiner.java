@@ -105,10 +105,12 @@ public class Combiner {
     }
 
 
-    public static BufferedImage mergeInside(BufferedImage bg, BufferedImage im, Config config) {
+    public static BufferedImage mergeInside(BufferedImage bg, BufferedImage im, Location location) {
+        location.setup(bg, im);
+
         Graphics2D g = bg.createGraphics();
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, config.getAlpha()));
-        g.drawImage(im, config.getX(), config.getY(), null);
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,  location.getAlpha()));
+        g.drawImage(im, location.getX(), location.getY(), null);
         g.dispose();
         return bg;
     }
@@ -124,59 +126,6 @@ public class Combiner {
         int[] rgbArray = new int[w * h];
         img.getRGB(0, 0, w, h, rgbArray, 0, w);
         return rgbArray;
-    }
-
-    public static class Config {
-        private int x;
-        private int y;
-        private float alpha;
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public float getAlpha() {
-            return alpha;
-        }
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static class Builder {
-            private int x;
-            private int y;
-            private float alpha;
-
-            public Builder x(int x) {
-                this.x = x;
-                return this;
-            }
-
-            public Builder y(int y) {
-                this.y = y;
-                return this;
-            }
-
-            public Builder alpha(float alpha) {
-                this.alpha = alpha;
-                return this;
-            }
-
-            public Config build() {
-                Config config = new Config();
-                config.x = this.x;
-                config.y = this.y;
-                config.alpha = this.alpha;
-                return config;
-            }
-        }
-
-
     }
 
 }

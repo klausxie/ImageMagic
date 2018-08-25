@@ -3,6 +3,7 @@ package cn.mklaus.tools;
 
 import cn.mklaus.tools.image.Combiner;
 import cn.mklaus.tools.image.ImageMagic;
+import cn.mklaus.tools.image.Location;
 import cn.mklaus.tools.image.Position;
 import org.junit.Assert;
 import org.junit.Test;
@@ -64,8 +65,14 @@ public class ImageMagicTest {
 
     @Test
     public void test() {
-        Combiner.Config config = Combiner.Config.builder().x(20).y(20).alpha(0.5f).build();
-        BufferedImage im = Combiner.mergeInside(CURRY_MAGIC.getBufferedImage(), AVATAR_MAGIC.getBufferedImage(), config);
+        Location location = Location.builder()
+                .horizonCenter(true)
+                .absolute(true)
+                .bottom(10)
+                .top(20)
+                .build();
+
+        BufferedImage im = Combiner.mergeInside(CURRY_MAGIC.getBufferedImage(), AVATAR_MAGIC.getBufferedImage(), location);
 
         save(im);
     }

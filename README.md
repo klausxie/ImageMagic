@@ -26,11 +26,12 @@ ImageMagic magic = ImageMagic.newMagic(imgUrl);
 ```
 
 ##### 图片圆角
-<style>
+<style type="text/css">
     .box {text-align:center}
     img {display: block; width=160px}
 </style>
-<div align=center style="display: flex; ">
+    
+<div align=center style="display: flex;">
     <div class="box">
         <img src="./src/test/resources/avatar.jpg">
         <label>原图</label>

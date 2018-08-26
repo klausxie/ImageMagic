@@ -33,7 +33,7 @@ public class ImageMagicTest {
     @Test
     public void roundCornerTest() {
         ImageMagic magic = ImageMagic.newMagic(AVATAR)
-                .roundCorner(80);
+                .roundCorner(100);
         save(magic);
     }
 

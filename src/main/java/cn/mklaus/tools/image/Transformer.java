@@ -123,7 +123,7 @@ public class Transformer {
         BufferedImage re = new BufferedImage(w, h,  BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = re.createGraphics();
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-        g.drawImage(im, 0, 0, w, h,null);
+        g.drawImage(im, 0, 0,null);
         return re;
     }
 

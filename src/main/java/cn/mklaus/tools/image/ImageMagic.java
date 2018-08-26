@@ -155,7 +155,7 @@ public class ImageMagic {
     }
 
     public ImageMagic alpha(float alpha) {
-        this.bufferedImage = Transformer.alpha(this.getBufferedImage(), alpha);
+        this.bufferedImage = Transformer.alpha(this.bufferedImage, alpha);
         return this;
     }
 

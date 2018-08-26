@@ -107,9 +107,9 @@ public class Combiner {
 
     /**
      * 将一张图片放着另一种的上面，相当于打水印
-     * @param bg
-     * @param im
-     * @param location
+     * @param bg        背景图
+     * @param im        水印图
+     * @param location  位置信息
      * @return
      */
     public static BufferedImage mergeInside(BufferedImage bg, BufferedImage im, Location location) {
@@ -123,6 +123,13 @@ public class Combiner {
     }
 
 
+    /**
+     * 水印文字
+     * @param bg        背景图
+     * @param text      文字
+     * @param location  位置信息
+     * @return
+     */
     public static BufferedImage printText(BufferedImage bg, Text text, Location location) {
         location.setup(bg, text);
         Graphics2D g = bg.createGraphics();

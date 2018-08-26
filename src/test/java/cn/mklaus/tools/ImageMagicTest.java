@@ -69,13 +69,13 @@ public class ImageMagicTest {
     @Test
     public void testMergeInside() {
         Location location = Location.builder()
-                .horizonCenter(true)
-                .verticalCenter(true)
                 .absolute(true)
-                .right(20)
+                .left(20)
+                .verticalCenter(true)
                 .build();
 
-        ImageMagic avatar = ImageMagic.newMagic(AVATAR).roundCornerRadio(100);
+        ImageMagic avatar = ImageMagic.newMagic(AVATAR)
+                .roundCornerRadio(100).alpha(0.8f).scale(100,100);
 
         ImageMagic magic = ImageMagic.newMagic(CURRY)
                 .mergeInside(avatar.getBufferedImage(), location);
@@ -87,14 +87,15 @@ public class ImageMagicTest {
     public void testPrintText() {
         Location location = Location.builder()
                 .absolute(true)
-                .bottom(50)
-                .right(50)
+                .bottom(20)
+                .right(20)
                 .build();
 
         Text text = Text.builder()
                 .color(Color.GREEN)
-                .font(new Font("Songti", Font.ITALIC , 32))
+                .font(new Font("Songti", Font.PLAIN , 32))
                 .content("MVP MVP MVP")
+                .alpha(0.7f)
                 .build();
 
 

@@ -4,9 +4,9 @@
 
 ```
 <dependency>
-   <groupId>org.projectlombok</groupId>
-   <artifactId>lombok</artifactId>
-   <version>1.18.2</version>
+   <groupId>cn.mklaus.tools</groupId>
+   <artifactId>tools</artifactId>
+   <version>0.2.0</version>
 </dependency>
 ```
 
@@ -64,3 +64,123 @@ magic.clipScale(300, 300);
 magic.alpha(0.6f)
 
 ```
+
+##### 图片水印
+
+![image](./image/watermark_img.jpg)
+
+```java
+
+File curry = new File("curry.jpg");
+File avatar = new File("avatar.jpg");
+
+// 将头像先缩放，透明，圆角处理
+ImageMagic avatarMagic = ImageMagic.newMagic(avatar)
+                .scale(60, 60)
+                .alpha(0.8f)
+                .roundCornerRadio(100);
+
+// 定位信息
+Location location = Location.builder()
+                .horizonCenter(true)
+                .absolute(true)
+                .top(25)
+                .build();
+
+// 将头像放入背景图中
+ImageMagic.newMagic(curry)
+                .mergeInside(avatarMagic.getBufferedImage(), location);
+
+
+```
+
+##### 文字水印
+
+![image](./image/watermark_text.jpg)
+
+```java
+Location location = Location.builder()
+                .absolute(true)
+                .bottom(20)
+                .right(20)
+                .build();
+
+Text text = Text.builder()
+            .color(Color.GREEN)
+            .font(new Font("Songti", Font.PLAIN , 32))
+            .alpha(0.7f)
+            .content("MVP MVP MVP")
+           
+            .build();
+
+File curry = new File("curry.jpg");
+ImageMagic.newMagic(curry)
+                .printText(text, location);
+
+
+```
+
+### 一个项目的需求例子
+
+需要将两个用户上传的图片合并，写上活动文字和二维码。
+
+![image](./image/fulifm_input.png)
+
+
+```java
+File img1 = new File("img1.png");
+File img2 = new File("img2.png");
+
+ImageMagic merge = ImageMagic.newMagic(img1)
+        .merge(ImageMagic.newMagic(img2).getBufferedImage(), Direction.LEFT);
+
+int height = merge.height();
+int width = merge.width();
+int blankHeight = Math.min(width / 10, Math.max(height / 5, 140));
+int blankHorizalPadding = blankHeight / 3;
+int textFontSize = blankHeight / 2;
+int textBottomPadding = (blankHeight - textFontSize) / 2;
+
+
+merge.mergeBlank(blankHeight, Color.WHITE, Direction.BOTTOM);
+
+Text text = Text.builder()
+        .content("最美录取通知书")
+        .font(new Font("Songti", Font.PLAIN, textFontSize))
+        .build();
+
+Location location = Location.builder()
+        .absolute(true)
+        .left(blankHorizalPadding)
+        .bottom(textBottomPadding)
+        .build();
+
+merge.printText(text, location);
+
+
+int qrcodeHeight = (int)(blankHeight * 0.9);
+int qrcodeBottomPadding = (blankHeight - qrcodeHeight) / 2;
+
+File qrcode = new File("qrcode.png");
+ImageMagic qrMagic = ImageMagic.newMagic(qrcode)
+        .scale(qrcodeHeight, qrcodeHeight);
+
+Location qrLocation = Location.builder()
+        .absolute(true)
+        .right(blankHorizalPadding)
+        .bottom(qrcodeBottomPadding)
+        .build();
+
+
+merge.mergeInside(qrMagic.getBufferedImage(), qrLocation);
+
+```
+
+输出结果：
+
+![image](./image/fulifm_output.jpg)
+
+### 注意
+
+目前图片透明有一个问题。如果一张图片先调用 alpha(), 再后面调用 roundCorner()就会出现透明失效问题。
+而先调用 roundCorner(), 再后调用 alpha() 则功能正常。

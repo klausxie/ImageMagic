@@ -127,6 +127,21 @@ public class ImageMagic {
      * Builder
      */
 
+    public ImageMagic scale(int w, int h) {
+        this.bufferedImage = Transformer.scale(this.getBufferedImage(), w, h);
+        return this;
+    }
+
+    public ImageMagic zoomScale(int w, int h, Color bgColor) {
+        this.bufferedImage = Transformer.zoomScale(this.getBufferedImage(), w, h, bgColor);
+        return this;
+    }
+
+    public ImageMagic clipScale(int w, int h) {
+        this.bufferedImage = Transformer.clipScale(this.getBufferedImage(), w, h);
+        return this;
+    }
+
     public ImageMagic roundCorner(int corner) {
         this.bufferedImage = Transformer.roundCorner(this.bufferedImage, corner);
         png();
@@ -136,6 +151,11 @@ public class ImageMagic {
     public ImageMagic roundCornerRadio(int percent) {
         this.bufferedImage = Transformer.roundedCornerRadio(this.bufferedImage, percent);
         png();
+        return this;
+    }
+
+    public ImageMagic alpha(float alpha) {
+        this.bufferedImage = Transformer.alpha(this.getBufferedImage(), alpha);
         return this;
     }
 
@@ -152,6 +172,11 @@ public class ImageMagic {
 
     public ImageMagic mergeInside(BufferedImage im, Location location) {
         this.bufferedImage = Combiner.mergeInside(this.bufferedImage, im, location);
+        return this;
+    }
+
+    public ImageMagic printText(Text text, Location location) {
+        this.bufferedImage = Combiner.printText(this.bufferedImage, text, location);
         return this;
     }
 

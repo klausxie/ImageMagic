@@ -16,17 +16,16 @@ import java.io.IOException;
  */
 public class ImageMagicTest {
 
-    private static File CURRY = new File(ImageMagicTest.class.getResource("/curry.jpg").getFile());
-    private static File IMG = new File(ImageMagicTest.class.getResource("/img.png").getFile());
-    private static File AVATAR = new File(ImageMagicTest.class.getResource("/avatar.jpg").getFile());
+    private static File CURRY = getTestFile("/curry.jpg");
+    private static File AVATAR = getTestFile("/avatar.jpg");
 
-    private static ImageMagic CURRY_MAGIC = ImageMagic.newMagic(CURRY);
-    private static ImageMagic IMG_MAGIC = ImageMagic.newMagic(IMG);
-    private static ImageMagic AVATAR_MAGIC = ImageMagic.newMagic(AVATAR);
+    private static File getTestFile(String path) {
+        return new File(ImageMagicTest.class.getResource(path).getFile());
+    }
 
     @Test
     public void read() {
-        ImageMagic magic = ImageMagic.newMagic(IMG);
+        ImageMagic magic = ImageMagic.newMagic(CURRY);
         Assert.assertEquals(750, magic.width());
         Assert.assertEquals(1122, magic.height());
     }
@@ -41,7 +40,7 @@ public class ImageMagicTest {
     @Test
     public void roundCornerRadioTest() {
         ImageMagic magic = ImageMagic.newMagic(AVATAR)
-                .roundCorner(100);
+                .roundCornerRadio(100);
         save(magic);
     }
 
@@ -69,34 +68,92 @@ public class ImageMagicTest {
                 .right(20)
                 .build();
 
-        AVATAR_MAGIC.roundCornerRadio(100);
-        ImageMagic im = ImageMagic.newMagic(CURRY)
-                .mergeInside(AVATAR_MAGIC.getBufferedImage(), location);
+        ImageMagic avatar = ImageMagic.newMagic(AVATAR).roundCornerRadio(100);
 
-        save(im);
+        ImageMagic magic = ImageMagic.newMagic(CURRY)
+                .mergeInside(avatar.getBufferedImage(), location);
+
+        save(magic);
     }
 
     @Test
     public void testPrintText() {
         Location location = Location.builder()
-                .horizonCenter(true)
-//                .offsetY(50)
-//                .verticalCenter(true)
                 .absolute(true)
-                .right(20)
-                .bottom(0)
-                .left(20)
-//                .top(0)
+                .bottom(50)
+                .right(50)
                 .build();
 
         Text text = Text.builder()
                 .color(Color.GREEN)
-                .font(new Font("Songti", Font.ITALIC , 16))
+                .font(new Font("Songti", Font.ITALIC , 32))
                 .content("MVP MVP MVP")
                 .build();
 
-        BufferedImage im = Combiner.printText(CURRY_MAGIC.getBufferedImage(), text, location);
-        save(im);
+
+        ImageMagic magic = ImageMagic.newMagic(CURRY)
+                .printText(text, location);
+        save(magic);
+    }
+
+    @Test
+    public void testAlpha() {
+        ImageMagic curry = ImageMagic.newMagic(CURRY);
+        ImageMagic avater = ImageMagic.newMagic(AVATAR);
+        Location location = Location.builder().horizonCenter(true).verticalCenter(true).build();
+        curry.mergeInside(avater.getBufferedImage(), location);
+        save(curry);
+    }
+
+    @Test
+    public void testFulifm() {
+        File img1 = getTestFile("/img1.png");
+        File img2 = getTestFile("/img2.png");
+
+        ImageMagic merge = ImageMagic.newMagic(img1)
+                .merge(ImageMagic.newMagic(img2).getBufferedImage(), Direction.LEFT);
+
+        int height = merge.height();
+        int width = merge.width();
+        int blankHeight = Math.min(width / 10, Math.max(height / 5, 140));
+        int blankHorizalPadding = blankHeight / 3;
+        int textFontSize = blankHeight / 2;
+        int textBottomPadding = (blankHeight - textFontSize) / 2;
+
+
+        merge.mergeBlank(blankHeight, Color.WHITE, Direction.BOTTOM);
+
+        Text text = Text.builder()
+                .content("最美录取通知书")
+                .font(new Font("Songti", Font.PLAIN, textFontSize))
+                .build();
+
+        Location location = Location.builder()
+                .absolute(true)
+                .left(blankHorizalPadding)
+                .bottom(textBottomPadding)
+                .build();
+
+        merge.printText(text, location);
+
+
+        int qrcodeHeight = (int)(blankHeight * 0.9);
+        int qrcodeBottomPadding = (blankHeight - qrcodeHeight) / 2;
+
+        File qrcode = getTestFile("/qrcode.png");
+        ImageMagic qrMagic = ImageMagic.newMagic(qrcode)
+                .scale(qrcodeHeight, qrcodeHeight);
+
+        Location qrLocation = Location.builder()
+                .absolute(true)
+                .right(blankHorizalPadding)
+                .bottom(qrcodeBottomPadding)
+                .build();
+
+
+        merge.mergeInside(qrMagic.getBufferedImage(), qrLocation);
+
+        save(merge);
     }
 
     private void save(BufferedImage bufferedImage) {

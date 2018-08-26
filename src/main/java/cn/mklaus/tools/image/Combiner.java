@@ -116,7 +116,7 @@ public class Combiner {
         location.setup(bg, im);
 
         Graphics2D g = bg.createGraphics();
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,  location.getAlpha()));
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,  1));
         g.drawImage(im, location.getX(), location.getY(), null);
         g.dispose();
         return bg;
@@ -127,7 +127,7 @@ public class Combiner {
         location.setup(bg, text);
         Graphics2D g = bg.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, text.getAlpha()));
         g.setColor(text.getColor());
         g.setFont(text.getFont());
         g.drawString(text.getContent(), location.getX(), location.getY());

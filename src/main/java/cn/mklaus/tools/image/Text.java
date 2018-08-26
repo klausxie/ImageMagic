@@ -25,4 +25,7 @@ public class Text {
     @Builder.Default
     private Color color = Color.BLACK;
 
+    @Builder.Default
+    private float alpha = 1.0f;
+
 }

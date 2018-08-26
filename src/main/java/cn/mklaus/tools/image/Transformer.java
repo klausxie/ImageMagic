@@ -117,4 +117,14 @@ public class Transformer {
         return re;
     }
 
+    public static BufferedImage alpha(BufferedImage im, float alpha) {
+        int w = im.getWidth();
+        int h = im.getHeight();
+        BufferedImage re = new BufferedImage(w, h,  BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = re.createGraphics();
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+        g.drawImage(im, 0, 0, w, h,null);
+        return re;
+    }
+
 }

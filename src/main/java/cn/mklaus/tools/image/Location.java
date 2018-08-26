@@ -31,8 +31,6 @@ public class Location {
     private int y;
     private int offsetX;
     private int offsetY;
-    @Builder.Default
-    private float alpha = 1.0f;
 
     private boolean verticalCenter;
     private boolean horizonCenter;

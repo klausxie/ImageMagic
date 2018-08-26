@@ -28,9 +28,9 @@ ImageMagic magic = ImageMagic.newMagic(imgUrl);
 ##### 图片圆角
 
 <div align=center>
-    <img src="./src/test/resources/avatar.jpg" style="width=200px; height=200px">
-    <img src="./src/test/resources/avatar_round_100.jpg" style="width=200px; height=200px">
-    <img src="./src/test/resources/avatar_round_circle.jpg" style="width=200px; height=200px">
+    <img src="./src/test/resources/avatar.jpg" width=160>
+    <img src="./src/test/resources/avatar_round_100.jpg" width=160>
+    <img src="./src/test/resources/avatar_round_circle.jpg" width=160>
 </div>
 
 

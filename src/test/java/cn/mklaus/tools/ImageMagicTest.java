@@ -26,8 +26,15 @@ public class ImageMagicTest {
     @Test
     public void read() {
         ImageMagic magic = ImageMagic.newMagic(CURRY);
-        Assert.assertEquals(750, magic.width());
-        Assert.assertEquals(1122, magic.height());
+        Assert.assertEquals(400, magic.width());
+        Assert.assertEquals(598, magic.height());
+    }
+
+    @Test
+    public void roundScaleTest() {
+        ImageMagic magic = ImageMagic.newMagic(CURRY)
+                .clipScale(400, 400);
+        save(magic);
     }
 
     @Test

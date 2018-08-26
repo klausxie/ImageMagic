@@ -27,7 +27,7 @@ ImageMagic magic = ImageMagic.newMagic(imgUrl);
 
 ##### 图片圆角
 
-![image](./image/round.png)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/d813d238a94d11e8a153f218982a9b2e)
 
 ```java
 
@@ -42,7 +42,7 @@ magic.roundCornerRadio(100);
 
 ##### 图片缩放
 
-![image](./image/scale.png)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/ef44a28ca94d11e8bb81f218982a9b2e)
 
 ```java
 
@@ -67,7 +67,7 @@ magic.alpha(0.6f)
 
 ##### 图片水印
 
-![image](./image/watermark_img.jpg)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/fd9a0e6ea94d11e898f2f218982a9b2e)
 
 ```java
 
@@ -96,7 +96,7 @@ ImageMagic.newMagic(curry)
 
 ##### 文字水印
 
-![image](./image/watermark_text.jpg)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/0d10543da94e11e8bb63f218982a9b2e)
 
 ```java
 Location location = Location.builder()
@@ -124,7 +124,7 @@ ImageMagic.newMagic(curry)
 
 需要将两个用户上传的图片合并，写上活动文字和二维码。
 
-![image](./image/fulifm_input.png)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/1bb05bcca94e11e897d9f218982a9b2e)
 
 
 ```java
@@ -178,7 +178,7 @@ merge.mergeInside(qrMagic.getBufferedImage(), qrLocation);
 
 输出结果：
 
-![image](./image/fulifm_output.jpg)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/295b9111a94e11e89383f218982a9b2e)
 
 ### 注意
 

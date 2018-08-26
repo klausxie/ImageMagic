@@ -26,11 +26,23 @@ ImageMagic magic = ImageMagic.newMagic(imgUrl);
 ```
 
 ##### 图片圆角
-
-<div align=center>
-    <img src="./src/test/resources/avatar.jpg" width=160>
-    <img src="./src/test/resources/avatar_round_100.jpg" width=160>
-    <img src="./src/test/resources/avatar_round_circle.jpg" width=160>
+<style>
+    .box {text-align:center}
+    img {display: block; width=160px}
+</style>
+<div align=center style="display: flex; ">
+    <div class="box">
+        <img src="./src/test/resources/avatar.jpg">
+        <label>原图</label>
+    </div>
+    <div class="box">
+        <img src="./src/test/resources/avatar_round_100.jpg">
+        <label>圆角100像素</label>
+    </div>
+    <div class="box">
+        <img src="./src/test/resources/avatar_round_circle.jpg">
+        <label>圆角100%</label>
+    </div>
 </div>
 
 

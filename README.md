@@ -174,7 +174,7 @@ Direction { TOP, RIGHT, BOTTOM, LEFT }
 
 需要将两个用户上传的图片合并，写上活动文字和二维码。
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/1bb05bcca94e11e897d9f218982a9b2e)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/1bb05bcca94e11e897d9f218982a9b2e?imageView2/2/h/400)
 
 
 ```java
@@ -228,7 +228,7 @@ merge.mergeInside(qrMagic.getBufferedImage(), qrLocation);
 
 输出结果：
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/295b9111a94e11e89383f218982a9b2e)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/295b9111a94e11e89383f218982a9b2e?imageView2/2/h/400)
 
 ### 注意
 

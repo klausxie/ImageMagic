@@ -73,18 +73,18 @@ magic.alpha(0.6f)
 
 ##### 图片水印
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/fd9a0e6ea94d11e898f2f218982a9b2e)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/fd9a0e6ea94d11e898f2f218982a9b2e?imageView2/2/h/400)
 
 ```java
 
 File curry = new File("curry.jpg");
 File avatar = new File("avatar.jpg");
 
-// 将头像先缩放，透明，圆角处理
+// 将头像先缩放，圆角，透明处理
 ImageMagic avatarMagic = ImageMagic.newMagic(avatar)
                 .scale(60, 60)
-                .alpha(0.8f)
-                .roundCornerRadio(100);
+                .roundCornerRadio(100)
+                .alpha(0.8f);
 
 // 定位信息
 Location location = Location.builder()
@@ -102,7 +102,7 @@ ImageMagic.newMagic(curry)
 
 ##### 文字水印
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/0d10543da94e11e8bb63f218982a9b2e)
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/0d10543da94e11e8bb63f218982a9b2e?imageView2/2/h/400)
 
 ```java
 Location location = Location.builder()
@@ -116,7 +116,6 @@ Text text = Text.builder()
             .font(new Font("Songti", Font.PLAIN , 32))
             .alpha(0.7f)
             .content("MVP MVP MVP")
-           
             .build();
 
 File curry = new File("curry.jpg");
@@ -125,6 +124,51 @@ ImageMagic.newMagic(curry)
 
 
 ```
+
+### 定位类 Location 和 方向枚举 Direction
+
+```java
+
+// 覆盖优先级： absolute 定位 > center 定位 > 坐标x,y定位
+// 另外有： left > right, top > bottom 
+
+Location.builder()
+    .x(x)
+    .y(y)
+    .verticalCenter(true)
+    .horizonCenter(true)
+    .absolute(true)
+    .top(top)
+    .right(right)
+    .bottom(bottom)
+    .left(left)
+    .offsetX(offsetX)
+    .offsetY(offsetY)
+    .build();
+
+
+
+// 获取 X 坐标源码
+public int getX() {
+    int startX = x;
+    if (horizonCenter) {
+        startX = getCenterX();
+    }
+    if (absolute) {
+        if (left > -1) {
+            startX = left;
+        } else if (right > -1) {
+            startX = bgWidth - overWidth - right;
+        }
+    }
+    return startX + offsetX;
+}
+
+// 方向枚举用于合并两张图片时，指明合并方向
+Direction { TOP, RIGHT, BOTTOM, LEFT }
+
+```
+
 
 ### 一个项目的需求例子
 

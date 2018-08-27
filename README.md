@@ -88,9 +88,9 @@ ImageMagic avatarMagic = ImageMagic.newMagic(avatar)
 
 // 定位信息
 Location location = Location.builder()
-                .horizonCenter(true)
                 .absolute(true)
-                .top(25)
+                .left(20)
+                .verticalCenter(true)
                 .build();
 
 // 将头像放入背景图中

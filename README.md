@@ -22,6 +22,12 @@ ImageMagic magic = ImageMagic.newMagic(img);
 String imgUrl = "http://img.xx.com/hash.jpg";
 ImageMagic magic = ImageMagic.newMagic(imgUrl);
 
+// 保存到临时文件
+File temp = magic.toFile();
+
+// 保存到指定文件
+File save = new File();
+magic.toFile(save);
 
 ```
 

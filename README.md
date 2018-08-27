@@ -53,13 +53,13 @@ magic.roundCornerRadio(100);
 ```java
 
 // 全覆盖
-magic.scale(300, 300);
+magic.scale(400, 400);
 
 // 等比覆盖
-magic.zoomScale(300, 300, Color.GRAY);
+magic.zoomScale(400, 400, Color.GRAY);
 
 // 剪切覆盖
-magic.clipScale(300, 300);
+magic.clipScale(400, 400);
 
 ```
 

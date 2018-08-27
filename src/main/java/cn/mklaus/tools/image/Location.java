@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  * 定位类，描述图片或文字在图片中的定位
  *
  * @author klaus
- * @date 2018/8/25 上午10:11
+ * Created on 2018/8/25 上午10:11
  */
 @Data
 @AllArgsConstructor

@@ -181,18 +181,21 @@ Direction { TOP, RIGHT, BOTTOM, LEFT }
 File img1 = new File("img1.png");
 File img2 = new File("img2.png");
 
+// 合并两张图片
 ImageMagic merge = ImageMagic.newMagic(img1)
         .merge(ImageMagic.newMagic(img2).getBufferedImage(), Direction.LEFT);
 
 int height = merge.height();
 int width = merge.width();
 int blankHeight = Math.min(width / 10, Math.max(height / 5, 140));
+
+// 加入白底
+merge.mergeBlank(blankHeight, Color.WHITE, Direction.BOTTOM);
+
+
 int blankHorizalPadding = blankHeight / 3;
 int textFontSize = blankHeight / 2;
 int textBottomPadding = (blankHeight - textFontSize) / 2;
-
-
-merge.mergeBlank(blankHeight, Color.WHITE, Direction.BOTTOM);
 
 Text text = Text.builder()
         .content("最美录取通知书")
@@ -205,6 +208,7 @@ Location location = Location.builder()
         .bottom(textBottomPadding)
         .build();
 
+// 水印文字
 merge.printText(text, location);
 
 
@@ -221,7 +225,7 @@ Location qrLocation = Location.builder()
         .bottom(qrcodeBottomPadding)
         .build();
 
-
+// 合并二维码
 merge.mergeInside(qrMagic.getBufferedImage(), qrLocation);
 
 ```

@@ -2,7 +2,7 @@ package cn.mklaus.tools.image;
 
 /**
  * @author klaus
- * @date 2018/8/23 下午5:16
+ * Created on 2018/8/23 下午5:16
  */
 public enum Direction {
 

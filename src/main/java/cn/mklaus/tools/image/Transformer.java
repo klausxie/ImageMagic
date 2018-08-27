@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  * 图片转换变形工具类
  *
  * @author klaus
- * @date 2018/8/23 下午2:42
+ * Created on 2018/8/23 下午2:42
  */
 public class Transformer {
 

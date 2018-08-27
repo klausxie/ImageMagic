@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * 图片拼接 文字水印
  *
  * @author klaus
- * @date 2018/8/23 下午5:10
+ * Created on 2018/8/23 下午5:10
  */
 public class Combiner {
 
@@ -110,7 +110,7 @@ public class Combiner {
      * @param bg        背景图
      * @param im        水印图
      * @param location  位置信息
-     * @return
+     * @return           处理后的图片 Buffer
      */
     public static BufferedImage mergeInside(BufferedImage bg, BufferedImage im, Location location) {
         location.setup(bg, im);
@@ -128,7 +128,7 @@ public class Combiner {
      * @param bg        背景图
      * @param text      文字
      * @param location  位置信息
-     * @return
+     * @return          处理后的图片 Buffer
      */
     public static BufferedImage printText(BufferedImage bg, Text text, Location location) {
         location.setup(bg, text);

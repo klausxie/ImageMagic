@@ -9,7 +9,7 @@ import java.net.URL;
 
 /**
  * @author klaus
- * @date 2018-08-16 下午12:03
+ * Created on 2018-08-16 下午12:03
  */
 public class ImageMagic {
 
@@ -127,54 +127,113 @@ public class ImageMagic {
      * Builder
      */
 
+    /**
+     * 全覆盖伸缩图片
+     * @param w     图片宽度
+     * @param h     图片高度
+     * @return      ImageMagic
+     */
     public ImageMagic scale(int w, int h) {
         this.bufferedImage = Transformer.scale(this.getBufferedImage(), w, h);
         return this;
     }
 
+    /**
+     * 等比覆盖伸缩图片
+     * @param w         图片宽度
+     * @param h         图片高度
+     * @param bgColor   背景颜色
+     * @return          ImageMagic
+     */
     public ImageMagic zoomScale(int w, int h, Color bgColor) {
         this.bufferedImage = Transformer.zoomScale(this.getBufferedImage(), w, h, bgColor);
         return this;
     }
 
+    /**
+     * 剪切覆盖伸缩图片
+     * @param w     图片宽度
+     * @param h     图片高度
+     * @return      ImageMagic
+     */
     public ImageMagic clipScale(int w, int h) {
         this.bufferedImage = Transformer.clipScale(this.getBufferedImage(), w, h);
         return this;
     }
 
+    /**
+     * 图片圆角
+     * @param corner    圆角像素值
+     * @return          ImageMagic
+     */
     public ImageMagic roundCorner(int corner) {
         this.bufferedImage = Transformer.roundCorner(this.bufferedImage, corner);
         png();
         return this;
     }
 
+    /**
+     * 图片圆角
+     * @param percent   圆角百分比
+     * @return          ImageMagic
+     */
     public ImageMagic roundCornerRadio(int percent) {
         this.bufferedImage = Transformer.roundedCornerRadio(this.bufferedImage, percent);
         png();
         return this;
     }
 
+    /**
+     * 图片透明
+     * @param alpha     透明度0.0-1.0f
+     * @return          ImageMagic
+     */
     public ImageMagic alpha(float alpha) {
         this.bufferedImage = Transformer.alpha(this.bufferedImage, alpha);
         return this;
     }
 
+    /**
+     * 图片合并
+     * @param im            被合并图片
+     * @param direction     合并方向
+     * @return              ImageMagic
+     */
     public ImageMagic merge(BufferedImage im, Direction direction) {
         checkImageType(im);
         this.bufferedImage = Combiner.merge(this.bufferedImage, im, direction);
         return this;
     }
 
+    /**
+     * 合并空图
+     * @param length        空图宽或高（根据方向而定）
+     * @param color         空图颜色
+     * @param direction     合并方向
+     * @return              ImageMagic
+     */
     public ImageMagic mergeBlank(int length, Color color, Direction direction) {
         this.bufferedImage = Combiner.mergeBlank(this.bufferedImage, length, color, direction);
         return this;
     }
 
+    /**
+     * 合并图片到内部
+     * @param im            被合并图片
+     * @param location      定位信息
+     * @return              ImageMagic
+     */
     public ImageMagic mergeInside(BufferedImage im, Location location) {
         this.bufferedImage = Combiner.mergeInside(this.bufferedImage, im, location);
         return this;
     }
 
+    /**
+     * 水印文字
+     * @param text          文字信息
+     * @param location      定位信息
+     * @return              ImageMagic
+     */
     public ImageMagic printText(Text text, Location location) {
         this.bufferedImage = Combiner.printText(this.bufferedImage, text, location);
         return this;

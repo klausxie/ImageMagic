@@ -70,7 +70,7 @@ public class Location {
         this.overHeight = (int)bounds.getHeight();
 
         // 原因是：drawString(String str, int x, int y) 中的参数x,y 指的是左下角
-        offsetY += text.getFont().getSize();
+        offsetY += this.overHeight;
     }
 
 

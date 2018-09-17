@@ -13,13 +13,12 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Objects;
 
 /**
  * @author klaus
- * @date 2018/9/17 下午5:19
+ * Created on 2018/9/17 下午5:19
  */
 public class Qrcodes {
 

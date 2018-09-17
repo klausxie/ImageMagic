@@ -6,9 +6,26 @@
 <dependency>
    <groupId>cn.mklaus.tools</groupId>
    <artifactId>tools</artifactId>
-   <version>0.2.0</version>
+   <version>0.3.0</version>
 </dependency>
 ```
+
+### 0.3.0更新，添加二维码生成功能
+
+![image](http://7xo50o.com2.z0.glb.qiniucdn.com/a1a5f502ba6011e8ba8ff218982a9b2e)
+
+```java
+ File file = Qrcodes.newBuilder()
+                .content("http://chuangcifang.com")
+                .filePath("/Users/klaus/Desktop/qrcode.png")
+                .width(400)
+                .backgroundColor(Color.WHITE)
+                .foregroundColor(Color.YELLOW)
+                .padding(20)
+                .buildToTempFile();
+
+```
+
 
 ### 使用
 

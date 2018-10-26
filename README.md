@@ -10,14 +10,14 @@
 </dependency>
 ```
 
-### 0.3.0更新，添加二维码生成功能
+### 0.2.0更新，添加二维码生成功能
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/a1a5f502ba6011e8ba8ff218982a9b2e)
+![image](http://download.chuangcifang.com/a1a5f502ba6011e8ba8ff218982a9b2e)
 
 ```java
  File file = Qrcodes.newBuilder()
                 .content("http://chuangcifang.com")
-                .filePath("/Users/klaus/Desktop/qrcode.png")
+                .filePath("/Users/klaus/Desktop/qrcode.png") // 可选
                 .width(400)
                 .backgroundColor(Color.WHITE)
                 .foregroundColor(Color.YELLOW)
@@ -50,7 +50,7 @@ magic.toFile(save);
 
 ##### 图片圆角
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/d813d238a94d11e8a153f218982a9b2e)
+![image](http://download.chuangcifang.com/d813d238a94d11e8a153f218982a9b2e)
 
 ```java
 
@@ -65,7 +65,7 @@ magic.roundCornerRadio(100);
 
 ##### 图片缩放
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/ef44a28ca94d11e8bb81f218982a9b2e)
+![image](http://download.chuangcifang.com/ef44a28ca94d11e8bb81f218982a9b2e)
 
 ```java
 
@@ -90,7 +90,7 @@ magic.alpha(0.6f)
 
 ##### 图片水印
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/fd9a0e6ea94d11e898f2f218982a9b2e?imageView2/2/h/400)
+![image](http://download.chuangcifang.com/fd9a0e6ea94d11e898f2f218982a9b2e?imageView2/2/h/400)
 
 ```java
 
@@ -119,7 +119,7 @@ ImageMagic.newMagic(curry)
 
 ##### 文字水印
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/0d10543da94e11e8bb63f218982a9b2e?imageView2/2/h/400)
+![image](http://download.chuangcifang.com/0d10543da94e11e8bb63f218982a9b2e?imageView2/2/h/400)
 
 ```java
 Location location = Location.builder()
@@ -191,7 +191,7 @@ Direction { TOP, RIGHT, BOTTOM, LEFT }
 
 需要将两个用户上传的图片合并，写上活动文字和二维码。
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/1bb05bcca94e11e897d9f218982a9b2e?imageView2/2/h/400)
+![image](http://download.chuangcifang.com/1bb05bcca94e11e897d9f218982a9b2e?imageView2/2/h/400)
 
 
 ```java
@@ -249,7 +249,7 @@ merge.mergeInside(qrMagic.getBufferedImage(), qrLocation);
 
 输出结果：
 
-![image](http://7xo50o.com2.z0.glb.qiniucdn.com/295b9111a94e11e89383f218982a9b2e?imageView2/2/h/400)
+![image](http://download.chuangcifang.com/295b9111a94e11e89383f218982a9b2e?imageView2/2/h/400)
 
 ### 注意
 

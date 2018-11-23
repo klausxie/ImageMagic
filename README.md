@@ -10,7 +10,7 @@
 </dependency>
 ```
 
-### 0.2.0更新，添加二维码生成功能
+### 0.3.0更新，添加二维码生成功能
 
 ![image](http://download.chuangcifang.com/a1a5f502ba6011e8ba8ff218982a9b2e)
 

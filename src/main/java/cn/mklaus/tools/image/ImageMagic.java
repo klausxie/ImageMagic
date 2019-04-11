@@ -40,7 +40,7 @@ public class ImageMagic {
         return new ImageMagic(bufferedImage);
     }
 
-    public static BufferedImage read(Object img) {
+    private static BufferedImage read(Object img) {
         try {
             if (img instanceof BufferedImage) {
                 return (BufferedImage)img;
@@ -83,6 +83,24 @@ public class ImageMagic {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static ImageMagic createBlank(int width, int height, Color color) {
+        BufferedImage blank = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
+        Graphics2D g = blank.createGraphics();
+        g.setColor(color);
+        g.fillRect(0, 0, width, height);
+        return ImageMagic.newMagic(blank);
+    }
+
+    public static ImageMagic createTransparent(int width, int height) {
+        BufferedImage blank = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                blank.setRGB( i,j,0x01000000);
+            }
+        }
+        return ImageMagic.newMagic(blank);
     }
 
     public int height() {
@@ -235,7 +253,18 @@ public class ImageMagic {
      * @return              ImageMagic
      */
     public ImageMagic printText(Text text, Location location) {
-        this.bufferedImage = Combiner.printText(this.bufferedImage, text, location);
+        this.bufferedImage = TextPrinter.printText(this.bufferedImage, text, location);
+        return this;
+    }
+
+    /**
+     * 水印文字
+     * @param text          文字信息
+     * @param location      定位信息
+     * @return              ImageMagic
+     */
+    public ImageMagic printMultiLineText(MultiLineText text, Location location) {
+        this.bufferedImage = TextPrinter.printMultiLineText(this.bufferedImage, text, location);
         return this;
     }
 

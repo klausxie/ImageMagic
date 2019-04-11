@@ -127,4 +127,38 @@ public class Transformer {
         return re;
     }
 
+    public static BufferedImage transparentBackground(BufferedImage im, Color saveColor) {
+        return transparentBackground(im, null, saveColor);
+    }
+
+    /**
+     * 将图片背景变成透明
+     * @param im                图片
+     * @param removeColor       需要透明的颜色
+     * @param saveColor         需要保留的颜色
+     * @return
+     */
+    private static BufferedImage transparentBackground(BufferedImage im, Color removeColor, Color saveColor) {
+        BufferedImage bg = new BufferedImage(im.getWidth(), im.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+        for (int i = 0; i < im.getWidth(); i++) {
+            for (int j = 0; j < im.getHeight(); j++) {
+                int rgb = im.getRGB(i, j);
+                int R = (rgb & 0xff0000) >> 16;
+                int G = (rgb & 0xff00) >> 8;
+                int B = (rgb & 0xff);
+                if (saveColor != null) {
+                    if (!(R == saveColor.getRed() && G == saveColor.getGreen() & B == saveColor.getBlue())) {
+                        rgb = (1 << 24)| (rgb & 0x00ffffff);
+                    }
+                } else {
+                    if ((R == removeColor.getRed() && G == removeColor.getGreen() & B == removeColor.getBlue())) {
+                        rgb = (1 << 24)| (rgb & 0x00ffffff);
+                    }
+                }
+                bg.setRGB(i,j, rgb);
+            }
+        }
+        return bg;
+    }
+
 }

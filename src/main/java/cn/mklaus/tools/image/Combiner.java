@@ -124,26 +124,6 @@ public class Combiner {
 
 
     /**
-     * 水印文字
-     * @param bg        背景图
-     * @param text      文字
-     * @param location  位置信息
-     * @return          处理后的图片 Buffer
-     */
-    public static BufferedImage printText(BufferedImage bg, Text text, Location location) {
-        location.setup(bg, text);
-        Graphics2D g = bg.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, text.getAlpha()));
-        g.setColor(text.getColor());
-        g.setFont(text.getFont());
-        g.drawString(text.getContent(), location.getX(), location.getY());
-        g.dispose();
-        return bg;
-    }
-
-
-    /**
      * 将图片信息读取到数组
      * @param img   图片
      * @return      int[]

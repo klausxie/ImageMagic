@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author klaus
- * @date 2019/4/1 3:41 PM
+ * Created on 2019/4/1 3:41 PM
  */
 public class TextPrinter {
 
@@ -27,7 +27,7 @@ public class TextPrinter {
      * @param content       文本内容
      * @param lineWidth     每行最多宽度
      * @param font          Font.class 带有字体大小信息。
-     * @return              List<String>
+     * @return              List
      */
     public static List<String> splitTextMatchLineWidth(String content, int lineWidth, Font font) {
         List<String> textList = new ArrayList<>();

@@ -103,6 +103,14 @@ public class ImageMagic {
         return ImageMagic.newMagic(blank);
     }
 
+    public static ImageMagic createMultiLineImage(MultiLineText multiLineText) {
+        return ImageMagic.newMagic(TextPrinter.createMultiLineImage(multiLineText));
+    }
+
+    public static ImageMagic createMultiLineImage(MultiLineText multiLineText, Color backgroundColor, Padding padding) {
+        return ImageMagic.newMagic(TextPrinter.createMultiLineImage(multiLineText, backgroundColor, padding));
+    }
+
     public int height() {
         return this.bufferedImage.getHeight();
     }

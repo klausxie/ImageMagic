@@ -55,7 +55,7 @@ public class TextPrinter {
         int englishWordStartIndex = -1;
 
         int pos = 1;
-        while (pos < content.length()) {
+        while (pos <= content.length()) {
             String text = content.substring(0, pos);
 
             // 换行
@@ -68,7 +68,6 @@ public class TextPrinter {
                 if (prevCharIsLetter && currentCharIsLetter) {
                     pos = englishWordStartIndex;
                 }
-                pos--;
                 break;
             }
 
@@ -79,7 +78,7 @@ public class TextPrinter {
 
             pos++;
         }
-        return pos;
+        return pos - 1;
     }
 
     /**
@@ -88,8 +87,8 @@ public class TextPrinter {
      * @param font  字体
      * @return  Double
      */
-    private static double calculateTextWidth(String text, Font font) {
-        return font.getStringBounds(text, FONT_RENDER_CONTEXT).getWidth();
+    private static int calculateTextWidth(String text, Font font) {
+        return (int)Math.round(font.getStringBounds(text, FONT_RENDER_CONTEXT).getWidth());
     }
 
     /**
@@ -206,18 +205,13 @@ public class TextPrinter {
     }
 
     public static void main(String[] args) throws IOException {
-        String content = "多发点开过饭店理个发姑父哒给房"
-                +
-                "Link extractors are objects whose only purpose is to extract links from web pages (scrapy.http.Response objects) which will be eventually followed." +
-                "\nThe only public method that every link extractor has is extract_links, which receives a Response object and returns a list of scrapy.link.Link objects.\n多发点开过饭店理个发姑父哒给客服";
-        Font font = new Font("Source Han Sans SC Heavy", Font.PLAIN, 40);
-        MultiLineText multiLineText = MultiLineText.builder()
-                .content(content)
-                .font(font)
+        MultiLineText contentMultiLineText = MultiLineText.builder()
                 .lineWidth(800)
+                .content("动：八年初心不改，诠释中国创新力量")
+                .font(new Font("Source Han Sans SC Heavy", Font.PLAIN, 50))
                 .build();
-        ImageMagic blank = ImageMagic.newMagic(createMultiLineImage(multiLineText));
-        blank.toFile(new File("/Users/klaus/Desktop/tools.png"));
+        BufferedImage contentBI = TextPrinter.createMultiLineImage(contentMultiLineText, Color.WHITE, Padding.create(0,  0, 0, 0));
+        ImageMagic.newMagic(contentBI).toFile(new File("/Users/klaus/Desktop/tools.png"));
 
     }
 
